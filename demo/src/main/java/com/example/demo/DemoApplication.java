@@ -3,11 +3,12 @@ package com.example.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@RestController  // <-- Add this line
+@RestController
 public class DemoApplication {
 
 	public static void main(String[] args) {
@@ -24,4 +25,14 @@ public class DemoApplication {
 		return "Hello " + name + "!";
 	}
 
+	@GetMapping("/greet")
+	public String greetEndpoint() {
+		return "Welcome to Spring Boot!";
+	}
+
+	@GetMapping("/greet/{name}")
+	public String greetEndpointName(@PathVariable String name,
+			@RequestParam(value = "message", defaultValue = "Welcome to Spring Boot!") String message) {
+		return "Hello " + name + "! " + message;
+	}
 }
